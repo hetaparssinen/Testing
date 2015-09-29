@@ -39,6 +39,13 @@ public class ExtraTest extends AbstractParent {
     }
     
     @Test
+    public void testNeliojuuriDouble() {
+        double sqrt = Math.sqrt(6.666);
+        laskin.neliojuuri(6.666);
+        assertEquals("neliojuuri(6.666) ", sqrt, laskin.annaTulos(), 0.0001 );
+    }
+    
+    @Test
     public void testNeliojuuri0() {
         laskin.neliojuuri(0);
         assertEquals("neliojuuti(0) ", 0, (int) laskin.annaTulos());

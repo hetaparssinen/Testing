@@ -12,30 +12,30 @@ public class Laskin {
         return tulos;
     }
     
-    public void lisaa(int n) {
+    public void lisaa(double n) {
         tulos = tulos + n;
     }
 
-    public void vahenna(int n) {
+    public void vahenna(double n) {
         tulos = tulos - n;     
     }
 
-    public void kerro(int n) {
+    public void kerro(double n) {
         tulos = tulos * n;
     }
 
-    public void jaa(int n) {
+    public void jaa(double n) {
         if ( n == 0 ) {
             throw new ArithmeticException("Cannot divide by zero");
         }
         tulos = tulos / n;
     }
 
-    public void nelio(int n) {
+    public void nelio(double n) {
         tulos = n * n;
     }
 
-    public void neliojuuri(int n) {
+    public void neliojuuri(double n) {
         if ( n < 0 ) {
             throw new IllegalArgumentException("Cannot be negative.");
         }

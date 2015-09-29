@@ -36,19 +36,40 @@ public class LaskinTest {
         laskin.lisaa(1);
         assertEquals("1 + 1 ", 2, laskin.annaTulos(), 0.0001);
     }
+    
+    @Test
+    public void testLisaaDouble() {
+        laskin.lisaa(1.5);
+        laskin.lisaa(1.3);
+        assertEquals("1.5 + 1.3 ", 2.8, laskin.annaTulos(), 0.0001);
+    }
 
     @Test
     public void testVahenna() {
         laskin.lisaa(10);
         laskin.vahenna(2);
-        assertEquals("10 - 2 ", laskin.annaTulos(), 8, 0.0001);
+        assertEquals("10 - 2 ", 8, laskin.annaTulos(), 0.0001);
+    }
+    
+    @Test
+    public void testVahennaDouble() {
+        laskin.lisaa(10.5);
+        laskin.vahenna(2.1);
+        assertEquals("10.5 - 2.1 ", 8.4, laskin.annaTulos(), 0.0001);
     }
 
     @Test
     public void testJaa() {
         laskin.lisaa(8);
         laskin.jaa(2);
-        assertEquals("8 / 2 ", laskin.annaTulos(), 4, 0.0001);
+        assertEquals("8 / 2 ", 4, laskin.annaTulos(), 0.0001);
+    }
+    
+    @Test
+    public void testJaaDouble() {
+        laskin.lisaa(1.5);
+        laskin.jaa(0.2);
+        assertEquals("1.5 / 0.2 ", 7.5, laskin.annaTulos(), 0.0001);
     }
 
     // Nollalla jaon pitäisi heittää poikkeus
@@ -62,5 +83,12 @@ public class LaskinTest {
         laskin.lisaa(10);
         laskin.kerro(10);
         assertEquals("10 * 10 ", 100, laskin.annaTulos(), 0.0001);
+    }
+    
+    @Test
+    public void testKerroDouble() {
+        laskin.lisaa(1.5);
+        laskin.kerro(2.5);
+        assertEquals("1.5 * 2.5 ", 3.75, laskin.annaTulos(), 0.0001);
     }
 }
