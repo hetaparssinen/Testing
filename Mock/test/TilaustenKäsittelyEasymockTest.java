@@ -31,7 +31,7 @@ public class TilaustenKäsittelyEasymockTest {
     }
     */
     @Test
-    public void testaaKäsittelijäWithEasyMockHinnoittelijaOver100() {
+    public void testaaKäsittelijäWithEasyMockHinnoittelijaUnder100() {
         float alkuSaldo = 100.0f;
         float listaHinta = 50.0f;
         float alennus = 20.0f;
@@ -56,9 +56,9 @@ public class TilaustenKäsittelyEasymockTest {
     }
     
     @Test
-    public void testaaKäsittelijäWithEasyMockHinnoittelijaUnder100() {
+    public void testaaKäsittelijäWithEasyMockHinnoittelijaOver100() {
         float alkuSaldo = 100.0f;
-        float listaHinta = 250.0f;
+        float listaHinta = 300.0f;
         float alennus = 20.0f;
         float loppuSaldo = alkuSaldo - (listaHinta * (1 - alennus / 100));
 
