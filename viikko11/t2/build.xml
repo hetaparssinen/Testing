@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="TDD" default="run">
+
+    <target name="run" depends="init, fetch, compile, jar, test, docs, clean"/>
+
+	
+	<target name="init">
+		<property name="junit" value="TDD/lib/junit-4.12.jar"/>
+		<property name="hamcrest" value="TDD/lib/hamcrest-core-1.3.jar"/>
+		<property name="src" value="TDD/src"/>
+		<property name="test" value="TDD/test"/>
+		<property name="build" value="build"/>
+		<property name="jar" value="TDD.jar"/>
+		<property name="docs" value="docs"/>
+		<property name="manifest" value="MANIFEST.MF"/>
+		<property name="reports" value="reports"/>
+		<property name="testsuite" value="**/TestSuite.java"/>
+	</target>
+
+    <target name="fetch">
+        <git command="pull" dir="."/>
+    </target>
+
+	<target name="compile">
+		<mkdir dir="${build}"/>
+		<javac srcdir="${src}" destdir="${build}"/>
+		<javac srcdir="${test}" destdir="${build}" classpath="${junit}"/>
+  	</target> 
+
+	<target name="jar">
+		<manifest file="MANIFEST.MF">
+		  <attribute name="Main-Class"
+				     value="Main" />
+		</manifest>
+	   <jar destfile="${jar}" manifest="${manifest}" basedir="${build}">
+	   </jar>
+  	</target>
+
+
+
+	<target name="test">
+		<mkdir dir="${reports}"/>
+	  <junit printsummary="yes" haltonfailure="no">
+		<classpath location="${junit}" />
+		<classpath location="${hamcrest}" />	
+		<classpath location="${build}" />
+		
+		<formatter type="xml"/>
+		<formatter type="plain"/>
+		
+		<batchtest fork="yes" todir="${reports}">
+			<fileset dir="${test}">
+				<include name="${testsuite}" />
+			</fileset>
+		</batchtest>
+		
+	  </junit>
+	</target>
+	
+  <target name="docs">
+    <javadoc sourcepath="${src}" destdir="${docs}"/>
+  </target>
+
+	<target name="clean">
+        <delete dir="${build}"/>
+		<delete file="${manifest}"/>
+		<delete file="${jar}"/>
+		<delete dir="${reports}"/>
+		<delete dir="${docs}"/>
+    </target>
+
+    <macrodef name = "git">
+    <attribute name = "command" />
+    <attribute name = "dir" default = "" />
+    <element name = "args" optional = "true" />
+    <sequential>
+        <echo message = "git @{command}" />
+        <exec executable = "git" dir = "@{dir}">
+            <arg value = "@{command}" />
+            <args/>
+        </exec>
+    </sequential>
+</macrodef>
+</project>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Tiliprojekti" default="use">
+
+    <target name="run" depends="init, compile, tilit, use, clean"/>
+
+    <target name="init">
+        <git command="pull" dir="."/>
+    </target>
+
+	<target name="compile">
+		<mkdir dir="build" />
+		<javac srcdir="src" destdir="build" includes="**/*.java" target="1.8"/>
+  	</target>
+
+	<target name="tilit">
+	<manifest file="MANIFEST.MF">
+	  <attribute name="Main-Class"
+		         value="TiliTesti" />
+	</manifest>
+	   <jar destfile="Tiliprojekti.jar" manifest="MANIFEST.MF" basedir="build">
+	   </jar>
+	</target>
+
+	<target name="use" depends="init, compile, tilit">
+        <java jar="Tiliprojekti.jar" fork="true"/>
+    </target>
+
+	<target name="clean">
+        <delete dir="build"/>
+		<delete file="MANIFEST.MF"/>
+		<delete file="Tiliprojekti.jar"/>
+    </target>
+
+    <macrodef name = "git">
+    <attribute name = "command" />
+    <attribute name = "dir" default = "" />
+    <element name = "args" optional = "true" />
+    <sequential>
+        <echo message = "git @{command}" />
+        <exec executable = "git" dir = "@{dir}">
+            <arg value = "@{command}" />
+            <args/>
+        </exec>
+    </sequential>
+</macrodef>
+</project>
