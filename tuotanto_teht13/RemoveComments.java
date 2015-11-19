@@ -7,6 +7,7 @@ package removecomments;
 
 import java.io.*;
 import java.util.Scanner;
+import java.nio.charset.Charset;
 /**
  *
  * @author Heta
@@ -18,6 +19,7 @@ public class RemoveComments {
      */
     public static void main(String[] args) {
         File file = new File("C:/Code/Ohjelmistotuotanto/testFile.java");
+        Charset encoding = Charset.defaultCharset();
         try {
             /* This code removes all comments 
             *  from file 
@@ -32,52 +34,72 @@ public class RemoveComments {
             String test3 = "//";
             
             PrintWriter writer = new PrintWriter("C:/Code/Ohjelmistotuotanto/results.java");
-            Scanner scan = new Scanner(file);
-            boolean multiple = false;
-            while (scan.hasNextLine()) {
-                String line = scan.nextLine();
-                if (multiple) {
-                    if (line.contains("*/")) {
-                        int i = line.indexOf("*/");
-                        line = line.substring(i + 2);
-                        writer.println(line);
-                        multiple = false;
-                    }
-                }
-                else if (line.contains("/*")) {
-                    int i = line.indexOf("/*");
-                    String lineStart = line.substring(0, i);
-                    String lineEnd = line.substring(i);
-                    if (lineStart.contains("\"") && lineEnd.contains("\"")) {
-                        writer.println(line);
-                    } else {
-                        writer.print(lineStart);
-                        if (lineEnd.contains("*/")) {
-                            i = lineEnd.indexOf("*/");
-                            lineStart = lineEnd.substring(0, i);
-                            lineEnd = lineEnd.substring(i);
-                            writer.println(lineEnd);
-                        } else {
-                            multiple = true;
-                            writer.println();
+            try {
+                InputStream in = new FileInputStream(file);
+                Reader reader = new InputStreamReader(in, encoding);
+                // buffer for efficiency
+                Reader buffer = new BufferedReader(reader);
+                boolean slash = false;
+                boolean multiple = false;
+                boolean end = false;
+                boolean line = false;
+                int element;
+                while ((element = buffer.read()) != -1) {
+                    char c = (char) element;
+                    System.out.println("C: " + c);
+                    
+                    if (line) {
+                        if (c == '\n') {
+                            line = false;
                         }
                     }
-                }
-                else if (line.contains("//")) {
-                    int i = line.indexOf("//");
-                    String lineStart = line.substring(0, i);
-                    String lineEnd = line.substring(i);
-                    if (lineStart.contains("\"") && lineEnd.contains("\"")) {
-                        writer.println(line);
-                    } else {
-                        writer.println(lineStart);
+                    else if (slash) {
+                        if (c == '/') {
+                            writer.println("");
+                            System.out.println("väli");
+                            line = true;
+                            slash = false;
+                        }
+                        else if (c == '*') {
+                            multiple = true;
+                            slash = false;
+                        }
+                        else {
+                            writer.print("/" + c);
+                            System.out.print("////" + c);
+                            slash = false;
+                        }
                     }
+                    else if (multiple) {
+                        if (end) {
+                            if (c == '/') {
+                                writer.println("");
+                                end = false;
+                                multiple = false;
+                                System.out.println("uusi rivi");
+                            }
+                        }
+                        else if (c == '*') {
+                            end = true;
+                        }
+                    }
+                    else if (c == '/') {
+                        slash = true;
+                        System.out.println("slash");
+                    }
+                    else if (c == '\n') {
+                        writer.println("");
+                        System.out.println("rivin vaihto");
+                    }
+                    else {
+                        writer.print(c);
+                        System.out.println("else");
+                    }
+                            
                 }
-                else {
-                    writer.println(line);
-                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            scan.close();
             writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
