@@ -46,7 +46,6 @@ public class RemoveComments {
                 int element;
                 while ((element = buffer.read()) != -1) {
                     char c = (char) element;
-                    System.out.println("C: " + c);
                     
                     if (line) {
                         if (c == '\n') {
@@ -56,7 +55,6 @@ public class RemoveComments {
                     else if (slash) {
                         if (c == '/') {
                             writer.println("");
-                            System.out.println("väli");
                             line = true;
                             slash = false;
                         }
@@ -66,7 +64,6 @@ public class RemoveComments {
                         }
                         else {
                             writer.print("/" + c);
-                            System.out.print("////" + c);
                             slash = false;
                         }
                     }
@@ -76,7 +73,6 @@ public class RemoveComments {
                                 writer.println("");
                                 end = false;
                                 multiple = false;
-                                System.out.println("uusi rivi");
                             }
                         }
                         else if (c == '*') {
@@ -85,15 +81,12 @@ public class RemoveComments {
                     }
                     else if (c == '/') {
                         slash = true;
-                        System.out.println("slash");
                     }
                     else if (c == '\n') {
                         writer.println("");
-                        System.out.println("rivin vaihto");
                     }
                     else {
                         writer.print(c);
-                        System.out.println("else");
                     }
                             
                 }
