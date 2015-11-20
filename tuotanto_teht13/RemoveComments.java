@@ -18,7 +18,7 @@ public class RemoveComments {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        File file = new File("C:/Code/Ohjelmistotuotanto/testFile.java");
+        File file = new File("testFile.java");
         Charset encoding = Charset.defaultCharset();
         try {
             /* This code removes all comments 
@@ -33,7 +33,7 @@ public class RemoveComments {
             // It doesn't remove characters between "" for example: 
             String test3 = "//";
             
-            PrintWriter writer = new PrintWriter("C:/Code/Ohjelmistotuotanto/results.java");
+            PrintWriter writer = new PrintWriter("results.java");
             try {
                 InputStream in = new FileInputStream(file);
                 Reader reader = new InputStreamReader(in, encoding);
