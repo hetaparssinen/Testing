@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Laskin.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Laskin&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">laskin</a> &gt; <span class="el_source">Laskin.java</span></div><h1>Laskin.java</h1><pre class="source lang-java linenums">package laskin;
+
+<span class="fc" id="L3">public class Laskin {</span>
+
+    private static double tulos;  // Muuttuja tulokselle
+    
+    public void nollaa() {     // Nollaa tuloksen
+<span class="fc" id="L8">        tulos = 0;</span>
+<span class="fc" id="L9">    }</span>
+
+    public double annaTulos() {
+<span class="fc" id="L12">        return tulos;</span>
+    }
+    
+    public void lisaa(double n) {
+<span class="fc" id="L16">        tulos = tulos + n;</span>
+<span class="fc" id="L17">    }</span>
+
+    public void vahenna(double n) {
+<span class="fc" id="L20">        tulos = tulos - n;     </span>
+<span class="fc" id="L21">    }</span>
+
+    public void kerro(double n) {
+<span class="fc" id="L24">        tulos = tulos * n;</span>
+<span class="fc" id="L25">    }</span>
+
+    public void jaa(double n) {
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if ( n == 0 ) {</span>
+<span class="fc" id="L29">            throw new ArithmeticException(&quot;Cannot divide by zero&quot;);</span>
+        }
+<span class="fc" id="L31">        tulos = tulos / n;</span>
+<span class="fc" id="L32">    }</span>
+
+    public void nelio(double n) {
+<span class="fc" id="L35">        tulos = n * n;</span>
+<span class="fc" id="L36">    }</span>
+
+    public void neliojuuri(double n) {
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if ( n &lt; 0 ) {</span>
+<span class="fc" id="L40">            throw new IllegalArgumentException(&quot;Cannot be negative.&quot;);</span>
+        }
+<span class="fc" id="L42">        tulos = Math.sqrt(n);</span>
+<span class="fc" id="L43">    }</span>
+    
+    public void virtaON() {
+<span class="fc" id="L46">        tulos = 0;</span>
+<span class="fc" id="L47">    }</span>
+
+    public void virtaOFF() {
+<span class="fc" id="L50">        tulos = 0;</span>
+<span class="fc" id="L51">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
